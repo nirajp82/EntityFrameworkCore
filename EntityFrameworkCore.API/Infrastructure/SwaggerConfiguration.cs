@@ -3,7 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore;
 
-
 namespace EntityFrameworkCore.API
 {
     public static class SwaggerConfiguration

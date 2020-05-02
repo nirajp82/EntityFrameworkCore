@@ -13,6 +13,7 @@ namespace EntityFrameworkCore.API
         public static void ConfigureAppServices(this IServiceCollection services, IConfiguration configuration) 
         {
             services.ConfigureNucleusServices(configuration);
+            services.ConfigureSwaggerService();
         }
     }
 }

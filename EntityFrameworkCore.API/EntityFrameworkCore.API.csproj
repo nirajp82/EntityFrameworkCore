@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>EntityFrameworkCore.API</AssemblyName>
+    <RootNamespace>EntityFrameworkCore.API</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkCore.Repository\EntityFrameworkCore.Repository.csproj" />
+  </ItemGroup>
+
+
+</Project>

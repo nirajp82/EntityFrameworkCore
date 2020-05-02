@@ -7,7 +7,7 @@ namespace EntityFrameworkCore.Nucleus
     public class MapperHelper : IMapperHelper
     {
         #region Private Members
-        private readonly IMapper _mapper;
+        private IMapper _mapper { get; }
         #endregion
 
 

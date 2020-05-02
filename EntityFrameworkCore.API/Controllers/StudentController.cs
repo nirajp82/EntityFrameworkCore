@@ -7,7 +7,7 @@ namespace EntityFrameworkCore.API.Controllers
     [Route("[controller]")]
     public class StudentController : ControllerBase
     {
-        private readonly ILogger<StudentController> _logger;
+        private ILogger<StudentController> _logger { get; }
 
         public StudentController(ILogger<StudentController> logger)
         {

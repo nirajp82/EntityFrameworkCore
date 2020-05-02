@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\EntityFrameworkCore.Repository\EntityFrameworkCore.Repository.csproj" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.4.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntityFrameworkCore.APIModel\EntityFrameworkCore.APIModel.csproj" />
+    <ProjectReference Include="..\EntityFrameworkCore.Nucleus\EntityFrameworkCore.Nucleus.csproj" />
   </ItemGroup>
 
 

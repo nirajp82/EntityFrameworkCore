@@ -35,6 +35,7 @@ namespace EntityFrameworkCore.API
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.ConfigureCommonMiddleware();
 
             app.UseHttpsRedirection();
 

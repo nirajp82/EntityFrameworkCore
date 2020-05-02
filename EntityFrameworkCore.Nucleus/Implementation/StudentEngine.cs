@@ -3,6 +3,7 @@ using EntityFrameworkCore.DataModel;
 using EntityFrameworkCore.Repository;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Nucleus
 {
@@ -24,10 +25,10 @@ namespace EntityFrameworkCore.Nucleus
 
 
         #region Public Methods
-        public void Create(StudentEntity entity)
+        public void AddAsync(StudentEntity entity)
         {
             Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
-            _unitOfWork.StudentRepository.Create(student);
+            _unitOfWork.StudentRepository.AddAsync(student);
         }
 
         public void Delete(StudentEntity entity)
@@ -36,9 +37,9 @@ namespace EntityFrameworkCore.Nucleus
             _unitOfWork.StudentRepository.Delete(student);
         }
 
-        public StudentEntity Find(Guid studentId)
+        public async Task<StudentEntity> FindAsync(Guid studentId)
         {
-            Student student = _unitOfWork.StudentRepository.FindFirst(s => s.StudentId == studentId);
+            Student student = await _unitOfWork.StudentRepository.FindFirstAsync(s => s.Id == studentId);
             return _mapperHelper.Map<Student, StudentEntity>(student);
         }
 

@@ -2,6 +2,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Repository
 {
@@ -21,9 +22,9 @@ namespace EntityFrameworkCore.Repository
 
 
         #region Public Methods
-        public void Create(T entity)
+        public void AddAsync(T entity)
         {
-            _context.Set<T>().Add(entity);
+            _context.Set<T>().AddAsync(entity);
         }
 
         public void Delete(T entity)
@@ -41,9 +42,9 @@ namespace EntityFrameworkCore.Repository
             return _context.Set<T>().Where(expression).AsNoTracking();
         }
 
-        public T FindFirst(Expression<Func<T, bool>> expression)
+        public Task<T> FindFirstAsync(Expression<Func<T, bool>> expression)
         {
-            return _context.Set<T>().Where(expression).FirstOrDefault();
+            return _context.Set<T>().Where(expression).FirstOrDefaultAsync();
         }
 
         public void Update(T entity)

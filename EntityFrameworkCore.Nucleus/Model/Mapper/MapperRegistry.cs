@@ -10,7 +10,8 @@ namespace EntityFrameworkCore.Nucleus
         internal EntityModelMapperRegistry()
         {
             Map<StudentEntity, Student>();
-            Map<Student, StudentEntity>();
+            var mapExpr = Map<Student, StudentEntity>();
+            mapExpr.ForMember(dest => dest.ShortName, opt => opt.MapFrom(src => $"${src.LastName}, {src.FirstName}"));
         }
         #endregion
 

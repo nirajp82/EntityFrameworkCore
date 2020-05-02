@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Repository
 {
@@ -8,8 +9,8 @@ namespace EntityFrameworkCore.Repository
     {
         IQueryable<T> FindAll();
         IQueryable<T> Find(Expression<Func<T, bool>> expression);
-        T FindFirst(Expression<Func<T, bool>> expression);
-        void Create(T entity);
+        Task<T> FindFirstAsync(Expression<Func<T, bool>> expression);
+        void AddAsync(T entity);
         void Update(T entity);
         void Delete(T entity);
     }

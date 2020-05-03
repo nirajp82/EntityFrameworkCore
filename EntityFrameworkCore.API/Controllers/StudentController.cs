@@ -1,7 +1,9 @@
 ﻿using EntityFrameworkCore.Nucleus;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.API.Controllers
 {
@@ -32,6 +34,16 @@ namespace EntityFrameworkCore.API.Controllers
                 return Ok(students);
             else
                 return NoContent();
+        }
+
+        [HttpGet("{studentId}")]
+        public async Task<IActionResult> Get(Guid studentId)
+        {
+            var student = await _studentEngine.FindAsync(studentId);
+            if (student != null)
+                return Ok(student);
+            else
+                return NotFound();
         }
         #endregion
     }

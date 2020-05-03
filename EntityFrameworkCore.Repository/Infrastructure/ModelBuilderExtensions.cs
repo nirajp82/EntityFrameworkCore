@@ -45,6 +45,7 @@ namespace EntityFrameworkCore.Repository
                {
                    Id = studentId,
                    FirstName = "Sachin",
+                   MiddleInitial = "R",
                    LastName = "Tendulkar",
                    Age = 42
                });

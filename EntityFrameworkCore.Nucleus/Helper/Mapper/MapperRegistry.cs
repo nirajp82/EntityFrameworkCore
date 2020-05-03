@@ -7,12 +7,12 @@ namespace EntityFrameworkCore.Nucleus
     internal class EntityModelMapperRegistry : Profile
     {
         #region Constructor
-        internal EntityModelMapperRegistry()
+        public EntityModelMapperRegistry()
         {
             Map<StudentEntity, Student>();
 
             var mapExpr = Map<Student, StudentEntity>();
-            mapExpr.ForMember(dest => dest.ShortName, opt => opt.MapFrom(src => $"${src.LastName}, {src.FirstName}"));
+            mapExpr.ForMember(dest => dest.ShortName, opt => opt.MapFrom(src => $"{src.LastName}, {src.FirstName}"));
         }
         #endregion
 

@@ -31,12 +31,6 @@ namespace EntityFrameworkCore.DataModel
         public ICollection<StudentSubject> StudentSubjects { get; set; }
 
         [NotMapped]
-        public string FullName
-        {
-            get
-            {
-                return $"{LastName}, {FirstName} {MiddleInitial}";
-            }
-        }
+        public string FullName => $"{LastName}, {FirstName} {MiddleInitial}";
     }
 }

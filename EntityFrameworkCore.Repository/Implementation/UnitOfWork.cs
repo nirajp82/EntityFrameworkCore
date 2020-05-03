@@ -1,6 +1,6 @@
 ﻿namespace EntityFrameworkCore.Repository
 {
-    public class UnitOfWork : IUnitOfWork
+    internal class UnitOfWork : IUnitOfWork
     {
         #region Private Members
         private IStudentRepository _studentRepository { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Repository
 {
-    public abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
+    internal abstract class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
         #region Member
         protected ApplicationContext _context { get; }

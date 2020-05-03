@@ -1,9 +1,6 @@
 ﻿using EntityFrameworkCore.DataModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EntityFrameworkCore.Repository
 {
@@ -11,6 +8,11 @@ namespace EntityFrameworkCore.Repository
     {
         public void Configure(EntityTypeBuilder<Student> builder)
         {
+            builder.HasMany(e => e.Evaluations)
+                .WithOne(s => s.Student)
+                .HasForeignKey(s => s.StudentId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.HasIndex(s => new { s.LastName, s.FirstName })
                     .HasName("idxStudentLFName");
 

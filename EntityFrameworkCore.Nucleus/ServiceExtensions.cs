@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using AutoMapper;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EntityFrameworkCore.Nucleus
 {

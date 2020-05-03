@@ -1,6 +1,5 @@
 ﻿using EntityFrameworkCore.DataModel;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Linq;
 
 namespace EntityFrameworkCore.Repository
@@ -8,7 +7,7 @@ namespace EntityFrameworkCore.Repository
     public class ApplicationContext : DbContext
     {
         #region Members
-        public DbSet<Student> Students { get; set; }
+        public DbSet<Student> Student { get; set; }
         #endregion
 
 
@@ -19,10 +18,13 @@ namespace EntityFrameworkCore.Repository
         }
         #endregion
 
+
         #region Public Methods
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new StudentConfig());
+            modelBuilder.ApplyConfiguration(new StudentSubjectConfig());
+
             foreach (var property in modelBuilder.Model.GetEntityTypes()
                         .SelectMany(t => t.GetProperties())
                         .Where(p => p.ClrType == typeof(string)))
@@ -32,8 +34,8 @@ namespace EntityFrameworkCore.Repository
                 if (property.GetColumnType() == null)
                     property.SetColumnType($"VARCHAR({maxLen})");
             }
-            base.OnModelCreating(modelBuilder);
 
+            base.OnModelCreating(modelBuilder);
         }
         #endregion
     }

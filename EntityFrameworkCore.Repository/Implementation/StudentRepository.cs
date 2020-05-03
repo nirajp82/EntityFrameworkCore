@@ -2,7 +2,7 @@
 
 namespace EntityFrameworkCore.Repository
 {
-    public class StudentRepository : RepositoryBase<Student>, IStudentRepository
+    internal class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
         #region Constructor
         public StudentRepository(ApplicationContext context) : base(context)

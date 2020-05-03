@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Nucleus
 {
-    public class StudentEngine : IStudentEngine
+    internal class StudentEngine : IStudentEngine
     {
         #region Members
         private IUnitOfWork _unitOfWork { get; }

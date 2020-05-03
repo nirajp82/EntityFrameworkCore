@@ -6,8 +6,12 @@
     <RootNamespace>EntityFrameworkCore.API</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup>   
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>

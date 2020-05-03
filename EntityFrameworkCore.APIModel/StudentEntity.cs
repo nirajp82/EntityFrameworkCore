@@ -25,10 +25,10 @@ namespace EntityFrameworkCore.APIModel
 
         public string ShortName { get; set; }
 
-        //public StudentDetailEntity StudentDetail { get; set; }
+        public StudentDetailEntity StudentDetail { get; set; }
 
-        //public ICollection<EvaluationEntity> Evaluations { get; set; }
+        public ICollection<EvaluationEntity> Evaluations { get; set; }
 
-        //public ICollection<StudentSubjectEntity> StudentSubjects { get; set; }
+        public ICollection<StudentSubjectEntity> StudentSubjects { get; set; }
     }
 }

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EntityFrameworkCore.APIModel
 {
-    public class Subject
+    public class SubjectEntity
     {
         public Guid Id { get; set; }
 

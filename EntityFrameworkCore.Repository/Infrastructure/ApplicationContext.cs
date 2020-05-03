@@ -1,5 +1,7 @@
 ﻿using EntityFrameworkCore.DataModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Console;
 using System.Linq;
 
 namespace EntityFrameworkCore.Repository
@@ -7,7 +9,7 @@ namespace EntityFrameworkCore.Repository
     public class ApplicationContext : DbContext
     {
         #region Members
-        public DbSet<Student> Student { get; set; }
+        public DbSet<Student> Student { get; set; }        
         #endregion
 
 
@@ -37,7 +39,7 @@ namespace EntityFrameworkCore.Repository
             }
 
             base.OnModelCreating(modelBuilder);
-        }
+        }       
         #endregion
     }
 }

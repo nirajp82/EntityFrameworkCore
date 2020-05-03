@@ -13,6 +13,11 @@ namespace EntityFrameworkCore.Nucleus
 
             var mapExpr = Map<Student, StudentEntity>();
             mapExpr.ForMember(dest => dest.ShortName, opt => opt.MapFrom(src => $"{src.LastName}, {src.FirstName}"));
+
+            Map<StudentDetail, StudentDetailEntity>();
+            Map<StudentSubject, StudentSubjectEntity>();
+            Map<Evaluation, EvaluationEntity>();
+            Map<Subject, SubjectEntity>();
         }
         #endregion
 

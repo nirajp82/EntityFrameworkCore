@@ -39,7 +39,7 @@ namespace EntityFrameworkCore.Nucleus
 
         public async Task<StudentEntity> FindAsync(Guid studentId)
         {
-            Student student = await _unitOfWork.StudentRepository.FindFirstAsync(s => s.Id == studentId);
+            Student student = await _unitOfWork.StudentRepository.FindFirstIncludeAllAsync(studentId);
             return _mapperHelper.Map<Student, StudentEntity>(student);
         }
 

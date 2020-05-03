@@ -1,6 +1,7 @@
 ﻿using EntityFrameworkCore.Nucleus;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace EntityFrameworkCore.API.Controllers
 {
@@ -23,7 +24,15 @@ namespace EntityFrameworkCore.API.Controllers
         #endregion
 
         #region Action Methods
-
+        [HttpGet()]
+        public IActionResult Get()
+        {
+            var students = _studentEngine.FindAll();
+            if (students?.Any() == true)
+                return Ok(students);
+            else
+                return NoContent();
+        }
         #endregion
     }
 }

@@ -22,6 +22,7 @@ namespace EntityFrameworkCore.Repository
         #region Public Methods
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Seed();
             modelBuilder.ApplyConfiguration(new StudentConfig());
             modelBuilder.ApplyConfiguration(new StudentSubjectConfig());
 

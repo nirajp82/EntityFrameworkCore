@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace EntityFrameworkCore.APIModel
@@ -23,5 +24,11 @@ namespace EntityFrameworkCore.APIModel
         public string FullName { get; set; }
 
         public string ShortName { get; set; }
+
+        //public StudentDetailEntity StudentDetail { get; set; }
+
+        //public ICollection<EvaluationEntity> Evaluations { get; set; }
+
+        //public ICollection<StudentSubjectEntity> StudentSubjects { get; set; }
     }
 }

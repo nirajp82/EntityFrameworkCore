@@ -11,7 +11,7 @@ namespace EntityFrameworkCore.Repository
             builder.HasMany(e => e.Evaluations)
                 .WithOne(s => s.Student)
                 .HasForeignKey(s => s.StudentId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasIndex(s => new { s.LastName, s.FirstName })
                     .HasName("idxStudentLFName");

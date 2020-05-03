@@ -31,5 +31,7 @@ namespace EntityFrameworkCore.DataModel
                 return $"{LastName}, {FirstName} {MiddleInitial}";
             }  
         }
+
+        public StudentDetail StudentDetail { get; set; }
     }
 }

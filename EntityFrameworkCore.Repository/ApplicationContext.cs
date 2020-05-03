@@ -1,5 +1,7 @@
 ﻿using EntityFrameworkCore.DataModel;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Linq;
 
 namespace EntityFrameworkCore.Repository
 {
@@ -20,8 +22,18 @@ namespace EntityFrameworkCore.Repository
         #region Public Methods
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new StudentConfig());
+            foreach (var property in modelBuilder.Model.GetEntityTypes()
+                        .SelectMany(t => t.GetProperties())
+                        .Where(p => p.ClrType == typeof(string)))
+            {
+                int? maxLen = property.GetMaxLength();
+                maxLen = maxLen ?? 1;
+                if (property.GetColumnType() == null)
+                    property.SetColumnType($"VARCHAR({maxLen})");
+            }
+            base.OnModelCreating(modelBuilder);
+
         }
         #endregion
     }

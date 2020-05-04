@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
 
 namespace EntityFrameworkCore.API
 {
@@ -26,9 +27,8 @@ namespace EntityFrameworkCore.API
         {
             services.ConfigureAppServices(Configuration);
 
-            services.AddControllers().AddNewtonsoftJson(options =>
-                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
-            );
+            services.AddControllers(options => options.Filters.Add(typeof(ValidateModelStateFilter)))
+            .AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

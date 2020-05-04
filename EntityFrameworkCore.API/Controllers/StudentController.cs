@@ -60,6 +60,17 @@ namespace EntityFrameworkCore.API.Controllers
             else
                 return NotFound();
         }
+
+
+        [HttpPost]
+        [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Post([FromBody] StudentEntity student)
+        {
+            student.Id = await _studentEngine.AddAsync(student);
+            return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
+        }
         #endregion
     }
 }

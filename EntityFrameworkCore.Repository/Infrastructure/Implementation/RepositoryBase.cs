@@ -22,9 +22,9 @@ namespace EntityFrameworkCore.Repository
 
 
         #region Public Methods
-        public void AddAsync(T entity)
+        public async Task AddAsync(T entity)
         {
-            _context.Set<T>().AddAsync(entity);
+            await _context.Set<T>().AddAsync(entity);
         }
 
         public void Delete(T entity)

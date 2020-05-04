@@ -11,6 +11,6 @@ namespace EntityFrameworkCore.Nucleus
         Task<StudentEntity> FindAsync(Guid studentId);
         Task<Guid> AddAsync(StudentEntity entity);
         void Update(StudentEntity entity);
-        void Delete(StudentEntity entity);
+        Task DeleteAsync(Guid studentId);
     }
 }

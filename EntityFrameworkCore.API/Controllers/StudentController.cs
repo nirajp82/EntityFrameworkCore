@@ -71,6 +71,30 @@ namespace EntityFrameworkCore.API.Controllers
             student.Id = await _studentEngine.AddAsync(student);
             return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
         }
+
+
+        [HttpPut("{studentId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult PUT(Guid studentId, [FromBody] StudentEntity student)
+        {
+            if (studentId != student.Id)
+                return BadRequest();
+
+            _studentEngine.Update(student);
+            return NoContent();
+        }
+
+        [HttpDelete("{studentId}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
+        public IActionResult Delete(Guid studentId)
+        {
+            _studentEngine.DeleteAsync(studentId);
+            return NoContent();
+        }
         #endregion
     }
 }

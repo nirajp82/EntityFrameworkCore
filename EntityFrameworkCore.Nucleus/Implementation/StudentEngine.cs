@@ -33,10 +33,11 @@ namespace EntityFrameworkCore.Nucleus
             return student.Id;
         }
 
-        public void Delete(StudentEntity entity)
+        public async Task DeleteAsync(Guid studentId)
         {
-            Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
+            Student student = await _unitOfWork.StudentRepository.FindFirstAsync(e => e.Id == studentId);
             _unitOfWork.StudentRepository.Delete(student);
+            _unitOfWork.Save();
         }
 
         public async Task<StudentEntity> FindAsync(Guid studentId)
@@ -55,6 +56,7 @@ namespace EntityFrameworkCore.Nucleus
         {
             Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
             _unitOfWork.StudentRepository.Update(student);
+            _unitOfWork.Save();
         }
         #endregion
     }

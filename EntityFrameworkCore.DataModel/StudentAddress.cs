@@ -4,19 +4,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityFrameworkCore.DataModel
 {
-    public class StudentDetail
+    public class StudentAddress : BaseModel
     {
-        [Column("StudentDetailId")]
-        public Guid Id { get; set; }
+        [Key]
+        [Column("StudentAddressId")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = DataModelConst.MaxLenErrorMsg)]
         public string Address { get; set; }
 
-        [MaxLength(150, ErrorMessage = DataModelConst.MaxLenErrorMsg)]
-        public string AdditionalInformation { get; set; }
-
-         public Guid StudentId { get; set; }
+         public long StudentId { get; set; }
          public Student Student { get; set; }
     }
 }

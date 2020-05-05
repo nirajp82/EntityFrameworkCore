@@ -7,7 +7,7 @@ namespace EntityFrameworkCore.APIModel
 {
     public class SubjectEntity
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [MaxLength(50, ErrorMessage = APIModelConst.MaxLenErrorMsg)]
         public string SubjectName { get; set; }

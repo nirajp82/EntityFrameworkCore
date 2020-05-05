@@ -4,17 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityFrameworkCore.APIModel
 {
-    public class StudentDetailEntity
+    public class StudentAddressEntity
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = APIModelConst.MaxLenErrorMsg)]
         public string Address { get; set; }
 
-        [MaxLength(150, ErrorMessage = APIModelConst.MaxLenErrorMsg)]
-        public string AdditionalInformation { get; set; }
-
-        public Guid StudentId { get; set; }
+        public long StudentId { get; set; }
     }
 }

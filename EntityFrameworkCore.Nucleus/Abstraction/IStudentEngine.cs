@@ -8,9 +8,9 @@ namespace EntityFrameworkCore.Nucleus
     public interface IStudentEngine
     {
         IEnumerable<StudentEntity> FindAll();
-        Task<StudentEntity> FindAsync(Guid studentId);
-        Task<Guid> AddAsync(StudentEntity entity);
+        Task<StudentEntity> FindAsync(long studentId);
+        Task<long> AddAsync(StudentEntity entity);
         void Update(StudentEntity entity);
-        Task DeleteAsync(Guid studentId);
+        Task DeleteAsync(long studentId);
     }
 }

@@ -18,11 +18,11 @@ namespace EntityFrameworkCore.Repository
         #endregion
 
         #region Public Method
-        public async Task<Student> FindFirstIncludeAllAsync(Guid studentId)
+        public async Task<Student> FindFirstIncludeAllAsync(long studentId)
         {
             return await _context.Student.Where(s => s.Id == studentId)
                                 .Include(s => s.Evaluations)
-                                .Include(s => s.StudentDetail)
+                                .Include(s => s.StudentAddress)
                                 .Include(s => s.StudentSubjects)
                                 .ThenInclude(ss => ss.Subject)
                                 .FirstOrDefaultAsync();

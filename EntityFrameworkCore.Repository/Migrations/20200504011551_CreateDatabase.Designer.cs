@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EntityFrameworkCore.Repository.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20200503203159_SeedDataStudentSubject")]
-    partial class SeedDataStudentSubject
+    [Migration("20200504011551_CreateDatabase")]
+    partial class CreateDatabase
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,20 +23,27 @@ namespace EntityFrameworkCore.Repository.Migrations
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Evaluation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("EvaluationId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdditionalExplanation")
                         .HasColumnType("VARCHAR(250)")
                         .HasMaxLength(250);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -47,14 +54,18 @@ namespace EntityFrameworkCore.Repository.Migrations
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Student", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("StudentId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Unique id of a student");
+                        .HasColumnType("bigint")
+                        .HasComment("Unique id of a student")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -70,43 +81,24 @@ namespace EntityFrameworkCore.Repository.Migrations
                         .HasColumnType("VARCHAR(1)")
                         .HasMaxLength(1);
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LastName", "FirstName")
                         .HasName("idxStudentLFName");
 
                     b.ToTable("Student");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("90997e95-52e2-4eb8-a70a-b2f3d6711ef3"),
-                            Age = 37,
-                            FirstName = "Maheraj",
-                            LastName = "Thakur"
-                        },
-                        new
-                        {
-                            Id = new Guid("59a13bb7-7de9-4533-83bf-072e3ad37af3"),
-                            Age = 42,
-                            FirstName = "Sachin",
-                            LastName = "Tendulkar"
-                        },
-                        new
-                        {
-                            Id = new Guid("9c1d8ac1-5b3f-4429-b331-39365b09ed8a"),
-                            Age = 27,
-                            FirstName = "Virat",
-                            LastName = "Kohli"
-                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentDetail", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("StudentDetailId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdditionalInformation")
                         .HasColumnType("VARCHAR(150)")
@@ -117,8 +109,14 @@ namespace EntityFrameworkCore.Repository.Migrations
                         .HasColumnType("VARCHAR(50)")
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -126,35 +124,21 @@ namespace EntityFrameworkCore.Repository.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentDetail");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("1fac2ab4-4237-40f6-baad-6042ab5495e2"),
-                            Address = "Some Street",
-                            StudentId = new Guid("90997e95-52e2-4eb8-a70a-b2f3d6711ef3")
-                        },
-                        new
-                        {
-                            Id = new Guid("8c03177f-9c73-489a-ace8-604ae967c0c9"),
-                            Address = "Mumbai",
-                            StudentId = new Guid("59a13bb7-7de9-4533-83bf-072e3ad37af3")
-                        },
-                        new
-                        {
-                            Id = new Guid("c2ad9a45-973d-4add-b2dd-65ef7041f397"),
-                            Address = "Delhi",
-                            StudentId = new Guid("9c1d8ac1-5b3f-4429-b331-39365b09ed8a")
-                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentSubject", b =>
                 {
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("SubjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("StudentId", "SubjectId");
 
@@ -165,35 +149,25 @@ namespace EntityFrameworkCore.Repository.Migrations
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Subject", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SubjectId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SubjectName")
                         .HasColumnType("VARCHAR(50)")
                         .HasMaxLength(50);
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Subject");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("b1306a81-4a93-4ed5-b8c7-b04aeb02c68c"),
-                            SubjectName = ".Net Core"
-                        },
-                        new
-                        {
-                            Id = new Guid("e4ede75e-9c39-45b2-b484-6f825defd26d"),
-                            SubjectName = "Data Structure"
-                        },
-                        new
-                        {
-                            Id = new Guid("4d299076-c69b-4bd0-8ee3-58303c90aedc"),
-                            SubjectName = "SQL Server"
-                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Evaluation", b =>
@@ -201,7 +175,7 @@ namespace EntityFrameworkCore.Repository.Migrations
                     b.HasOne("EntityFrameworkCore.DataModel.Student", "Student")
                         .WithMany("Evaluations")
                         .HasForeignKey("StudentId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

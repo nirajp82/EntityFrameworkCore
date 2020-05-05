@@ -52,7 +52,7 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get(Guid studentId)
+        public async Task<IActionResult> Get(long studentId)
         {
             var student = await _studentEngine.FindAsync(studentId);
             if (student != null)
@@ -77,7 +77,7 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult PUT(Guid studentId, [FromBody] StudentEntity student)
+        public IActionResult PUT(long studentId, [FromBody] StudentEntity student)
         {
             if (studentId != student.Id)
                 return BadRequest();
@@ -90,7 +90,7 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Delete(Guid studentId)
+        public IActionResult Delete(long studentId)
         {
             _studentEngine.DeleteAsync(studentId);
             return NoContent();

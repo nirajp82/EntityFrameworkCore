@@ -5,11 +5,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityFrameworkCore.DataModel
 {
-    public class Student
+    public class Student : BaseModel
     {
         [Key]
         [Column("StudentId")]
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = DataModelConst.MaxLenErrorMsg)]
@@ -24,13 +25,10 @@ namespace EntityFrameworkCore.DataModel
 
         public int Age { get; set; }
 
-        public StudentDetail StudentDetail { get; set; }
+        public StudentAddress StudentAddress { get; set; }
 
         public ICollection<Evaluation> Evaluations { get; set; }
 
         public ICollection<StudentSubject> StudentSubjects { get; set; }
-
-        [NotMapped]
-        public string FullName => $"{LastName}, {FirstName} {MiddleInitial}";
     }
 }

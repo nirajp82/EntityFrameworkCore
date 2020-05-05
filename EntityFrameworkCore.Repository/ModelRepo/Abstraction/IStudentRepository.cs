@@ -6,6 +6,6 @@ namespace EntityFrameworkCore.Repository
 {
     public interface IStudentRepository : IRepositoryBase<Student>
     {
-        Task<Student> FindFirstIncludeAllAsync(Guid studentId);
+        Task<Student> FindFirstIncludeAllAsync(long studentId);
     }
 }

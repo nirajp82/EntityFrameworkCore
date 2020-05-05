@@ -6,7 +6,7 @@ namespace EntityFrameworkCore.APIModel
 {
     public class EvaluationEntity
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [Required]
         public int Grade { get; set; }
@@ -14,6 +14,6 @@ namespace EntityFrameworkCore.APIModel
         [MaxLength(250, ErrorMessage = APIModelConst.MaxLenErrorMsg)]
         public string AdditionalExplanation { get; set; }
 
-        public Guid StudentId { get; set; }
+        public long StudentId { get; set; }
     }
 }

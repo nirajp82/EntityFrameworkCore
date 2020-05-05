@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using EntityFrameworkCore.APIModel;
 using EntityFrameworkCore.DataModel;
+using Microsoft.Data.SqlClient;
 
 namespace EntityFrameworkCore.Nucleus
 {
@@ -9,13 +10,21 @@ namespace EntityFrameworkCore.Nucleus
         #region Constructor
         public EntityModelMapperRegistry()
         {
-            Map<StudentEntity, Student>();
+            Map<string, string>().ConvertUsing(str => string.IsNullOrWhiteSpace(str) ? str : str.Trim());
 
-            var mapExpr = Map<Student, StudentEntity>();
-            mapExpr.ForMember(dest => dest.ShortName, opt => opt.MapFrom(src => $"{src.LastName}, {src.FirstName}"));
+            var mapExpr = Map<StudentEntity, Student>();
+            mapExpr.ForMember(dest => dest.StudentAddress,
+                opt =>
+                {
+                    opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Address)
+                    ? new StudentAddress { Address = src.Address }
+                    : null);
+                });
 
-            Map<StudentDetail, StudentDetailEntity>();
-            Map<StudentDetailEntity, StudentDetail>();
+            Map<Student, StudentEntity>();
+
+            Map<StudentAddress, StudentAddressEntity>();
+            Map<StudentAddressEntity, StudentAddress>();
 
             Map<StudentSubject, StudentSubjectEntity>();
             Map<StudentSubjectEntity, StudentSubject>();

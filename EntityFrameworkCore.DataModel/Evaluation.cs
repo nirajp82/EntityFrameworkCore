@@ -4,10 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityFrameworkCore.DataModel
 {
-    public class Evaluation
+    public class Evaluation :BaseModel
     {
+        [Key]
         [Column("EvaluationId")]
-        public Guid Id { get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public long Id { get; set; }
 
         [Required]
         public int Grade { get; set; }
@@ -15,7 +17,7 @@ namespace EntityFrameworkCore.DataModel
         [MaxLength(250, ErrorMessage = DataModelConst.MaxLenErrorMsg)]
         public string AdditionalExplanation { get; set; }
 
-        public Guid StudentId { get; set; }
+        public long StudentId { get; set; }
         public Student Student { get; set; }
     }
 }

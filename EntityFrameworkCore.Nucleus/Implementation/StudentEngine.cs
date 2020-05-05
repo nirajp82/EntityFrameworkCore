@@ -25,7 +25,7 @@ namespace EntityFrameworkCore.Nucleus
 
 
         #region Public Methods
-        public async Task<Guid> AddAsync(StudentEntity entity)
+        public async Task<long> AddAsync(StudentEntity entity)
         {
             Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
             await _unitOfWork.StudentRepository.AddAsync(student);
@@ -33,14 +33,14 @@ namespace EntityFrameworkCore.Nucleus
             return student.Id;
         }
 
-        public async Task DeleteAsync(Guid studentId)
+        public async Task DeleteAsync(long studentId)
         {
             Student student = await _unitOfWork.StudentRepository.FindFirstAsync(e => e.Id == studentId);
             _unitOfWork.StudentRepository.Delete(student);
             _unitOfWork.Save();
         }
 
-        public async Task<StudentEntity> FindAsync(Guid studentId)
+        public async Task<StudentEntity> FindAsync(long studentId)
         {
             Student student = await _unitOfWork.StudentRepository.FindFirstIncludeAllAsync(studentId);
             return _mapperHelper.Map<Student, StudentEntity>(student);

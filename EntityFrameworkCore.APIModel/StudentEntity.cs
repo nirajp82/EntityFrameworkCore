@@ -6,7 +6,7 @@ namespace EntityFrameworkCore.APIModel
 {
     public class StudentEntity
     {
-        public Guid Id { get; set; }
+        public long Id { get; set; }
 
         [Required(ErrorMessage = APIModelConst.RequiredErrorMsg)]
         [MaxLength(50, ErrorMessage = APIModelConst.MaxLenErrorMsg)]
@@ -21,7 +21,8 @@ namespace EntityFrameworkCore.APIModel
 
         public int Age { get; set; }
 
-        public StudentDetailEntity StudentDetail { get; set; }
+        public string Address { get; set; }
+
 
         public ICollection<EvaluationEntity> Evaluations { get; set; }
 
@@ -29,6 +30,5 @@ namespace EntityFrameworkCore.APIModel
 
         public string FullName => $"{LastName}, {FirstName} {MiddleInitial}";
 
-        public string ShortName => $"{LastName}, {FirstName} ";
     }
 }

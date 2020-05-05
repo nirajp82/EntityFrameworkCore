@@ -1,5 +1,16 @@
 {
-
+  "RD": {
+    "firstName": "Rahul",
+    "lastName": "Dravid",
+    "age": 40,
+    "Address": "Banglore"
+  },
+  "ST": {
+    "firstName": "Sachin",
+    "lastName": "Tendulkar",
+    "age": 42,
+    "Address": "Bombay"
+  },
   "Post1": {
     "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     "firstName": "Rahul",

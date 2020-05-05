@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
+using System;
 using System.Linq;
 
 namespace EntityFrameworkCore.Repository
@@ -9,7 +10,7 @@ namespace EntityFrameworkCore.Repository
     public class ApplicationContext : DbContext
     {
         #region Members
-        public DbSet<Student> Student { get; set; }        
+        public DbSet<Student> Student { get; set; }
         #endregion
 
 
@@ -39,7 +40,23 @@ namespace EntityFrameworkCore.Repository
             }
 
             base.OnModelCreating(modelBuilder);
-        }       
+        }
+
+        public override int SaveChanges()
+        {
+            var entries = ChangeTracker.Entries()
+                            .Where(e => e.Entity is BaseModel &&
+                            (e.State == EntityState.Added || e.State == EntityState.Modified));
+
+            foreach (var entityEntry in entries)
+            {
+                ((BaseModel)entityEntry.Entity).UpdatedDate = DateTime.Now;
+                if (entityEntry.State == EntityState.Added)
+                    ((BaseModel)entityEntry.Entity).CreatedDate = DateTime.Now;
+            }
+
+            return base.SaveChanges();
+        }
         #endregion
     }
 }

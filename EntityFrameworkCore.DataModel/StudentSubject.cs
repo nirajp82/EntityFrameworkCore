@@ -2,12 +2,12 @@
 
 namespace EntityFrameworkCore.DataModel
 {
-    public class StudentSubject
+    public class StudentSubject : BaseModel
     {
-        public Guid StudentId { get; set; }
+        public long StudentId { get; set; }
         public Student Student { get; set; }
 
-        public Guid SubjectId { get; set; }
+        public long SubjectId { get; set; }
         public Subject Subject { get; set; }
     }
 }

@@ -21,68 +21,49 @@ namespace EntityFrameworkCore.Repository.Migrations
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Evaluation", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("EvaluationId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdditionalExplanation")
                         .HasColumnType("VARCHAR(250)")
                         .HasMaxLength(250);
 
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId");
 
                     b.ToTable("Evaluation");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("18bb3e4d-1a1f-4f6f-ba6e-98a75f0833d1"),
-                            AdditionalExplanation = "Excellent",
-                            Grade = 12,
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019")
-                        },
-                        new
-                        {
-                            Id = new Guid("0b2282ed-9034-4b7c-a275-f0c56f996972"),
-                            AdditionalExplanation = "Outstanding",
-                            Grade = 11,
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019")
-                        },
-                        new
-                        {
-                            Id = new Guid("57313a49-f614-4e5b-82c1-cf3d51802ad0"),
-                            AdditionalExplanation = "Very good",
-                            Grade = 12,
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019")
-                        },
-                        new
-                        {
-                            Id = new Guid("acd9b7ea-ee00-46e1-8bf0-e4ce0ea91854"),
-                            AdditionalExplanation = "Satisfactory",
-                            Grade = 11,
-                            StudentId = new Guid("1cef5f29-1e44-45e7-a07c-6acc8cab1df2")
-                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Student", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("StudentId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasComment("Unique id of a student");
+                        .HasColumnType("bigint")
+                        .HasComment("Unique id of a student")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("Age")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -98,183 +79,89 @@ namespace EntityFrameworkCore.Repository.Migrations
                         .HasColumnType("VARCHAR(1)")
                         .HasMaxLength(1);
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("LastName", "FirstName")
                         .HasName("idxStudentLFName");
 
                     b.ToTable("Student");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019"),
-                            Age = 37,
-                            FirstName = "Maheraj",
-                            LastName = "Thakur"
-                        },
-                        new
-                        {
-                            Id = new Guid("1cef5f29-1e44-45e7-a07c-6acc8cab1df2"),
-                            Age = 42,
-                            FirstName = "Sachin",
-                            LastName = "Tendulkar",
-                            MiddleInitial = "R"
-                        },
-                        new
-                        {
-                            Id = new Guid("561bc65c-b946-434d-95f0-6edb75b40ee3"),
-                            Age = 27,
-                            FirstName = "Virat",
-                            LastName = "Kohli"
-                        });
                 });
 
-            modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentDetail", b =>
+            modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentAddress", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnName("StudentDetailId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("AdditionalInformation")
-                        .HasColumnType("VARCHAR(150)")
-                        .HasMaxLength(150);
+                        .HasColumnName("StudentAddressId")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("VARCHAR(50)")
                         .HasMaxLength(50);
 
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("StudentId")
                         .IsUnique();
 
-                    b.ToTable("StudentDetail");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("27bd8475-243e-4bde-9547-f6997d4c1428"),
-                            Address = "Some Street",
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019")
-                        },
-                        new
-                        {
-                            Id = new Guid("ec50e4a9-1f59-4eb9-90a0-fc57b9de1c37"),
-                            Address = "Mumbai",
-                            StudentId = new Guid("1cef5f29-1e44-45e7-a07c-6acc8cab1df2")
-                        },
-                        new
-                        {
-                            Id = new Guid("6214ddb0-ae76-43f7-b15a-0f8cb72c322d"),
-                            Address = "Delhi",
-                            StudentId = new Guid("561bc65c-b946-434d-95f0-6edb75b40ee3")
-                        });
+                    b.ToTable("StudentAddress");
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentSubject", b =>
                 {
-                    b.Property<Guid>("StudentId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
 
-                    b.Property<Guid>("SubjectId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<long>("SubjectId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("StudentId", "SubjectId");
 
                     b.HasIndex("SubjectId");
 
                     b.ToTable("StudentSubject");
-
-                    b.HasData(
-                        new
-                        {
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019"),
-                            SubjectId = new Guid("a6995838-c28a-4289-bf49-36e5bbb434da")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019"),
-                            SubjectId = new Guid("ab3a76fe-03ba-4769-a49f-577511738fa4")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("f85ae61f-d8da-4c89-8e9d-eee890747019"),
-                            SubjectId = new Guid("b1ca8d94-5426-49eb-9068-791885ad3e80")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("1cef5f29-1e44-45e7-a07c-6acc8cab1df2"),
-                            SubjectId = new Guid("a6995838-c28a-4289-bf49-36e5bbb434da")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("1cef5f29-1e44-45e7-a07c-6acc8cab1df2"),
-                            SubjectId = new Guid("ab3a76fe-03ba-4769-a49f-577511738fa4")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("561bc65c-b946-434d-95f0-6edb75b40ee3"),
-                            SubjectId = new Guid("a6995838-c28a-4289-bf49-36e5bbb434da")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("561bc65c-b946-434d-95f0-6edb75b40ee3"),
-                            SubjectId = new Guid("ab3a76fe-03ba-4769-a49f-577511738fa4")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("561bc65c-b946-434d-95f0-6edb75b40ee3"),
-                            SubjectId = new Guid("b1ca8d94-5426-49eb-9068-791885ad3e80")
-                        },
-                        new
-                        {
-                            StudentId = new Guid("561bc65c-b946-434d-95f0-6edb75b40ee3"),
-                            SubjectId = new Guid("338b66ab-bbd4-4249-9490-6c8ff6066872")
-                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Subject", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("SubjectId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("SubjectName")
                         .HasColumnType("VARCHAR(50)")
                         .HasMaxLength(50);
 
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Subject");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("a6995838-c28a-4289-bf49-36e5bbb434da"),
-                            SubjectName = ".Net Core"
-                        },
-                        new
-                        {
-                            Id = new Guid("ab3a76fe-03ba-4769-a49f-577511738fa4"),
-                            SubjectName = "Data Structure"
-                        },
-                        new
-                        {
-                            Id = new Guid("b1ca8d94-5426-49eb-9068-791885ad3e80"),
-                            SubjectName = "SQL Server"
-                        },
-                        new
-                        {
-                            Id = new Guid("338b66ab-bbd4-4249-9490-6c8ff6066872"),
-                            SubjectName = "MS Azure"
-                        });
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Evaluation", b =>
@@ -286,11 +173,11 @@ namespace EntityFrameworkCore.Repository.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentDetail", b =>
+            modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentAddress", b =>
                 {
                     b.HasOne("EntityFrameworkCore.DataModel.Student", "Student")
-                        .WithOne("StudentDetail")
-                        .HasForeignKey("EntityFrameworkCore.DataModel.StudentDetail", "StudentId")
+                        .WithOne("StudentAddress")
+                        .HasForeignKey("EntityFrameworkCore.DataModel.StudentAddress", "StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

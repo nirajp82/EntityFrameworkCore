@@ -13,7 +13,7 @@ namespace EntityFrameworkCore.Repository
         {
             //CreateStudents(modelBuilder);
 
-            //CreateSubjects(modelBuilder);
+            CreateSubjects(modelBuilder);
         }
         #endregion
 

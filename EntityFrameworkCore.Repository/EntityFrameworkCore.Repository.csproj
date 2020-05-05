@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20200503190438_ADD_VARCHAR_SIZE.cs" />
     <Compile Remove="Migrations\20200503190438_ADD_VARCHAR_SIZE.Designer.cs" />
+    <Compile Remove="Migrations\20200505235142_Create-Subject-Ver-II.cs" />
+    <Compile Remove="Migrations\20200505235142_Create-Subject-Ver-II.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

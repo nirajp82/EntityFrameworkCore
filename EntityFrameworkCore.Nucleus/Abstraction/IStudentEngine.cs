@@ -9,7 +9,7 @@ namespace EntityFrameworkCore.Nucleus
     {
         IEnumerable<StudentEntity> FindAll();
         Task<StudentEntity> FindAsync(long studentId);
-        Task<long> AddAsync(StudentEntity entity);
+        Task<StudentEntity> AddAsync(StudentEntity entity);
         void Update(StudentEntity entity);
         Task DeleteAsync(long studentId);
     }

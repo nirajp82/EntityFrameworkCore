@@ -23,10 +23,11 @@ namespace EntityFrameworkCore.Repository
             {
                 optionsBuilder.UseLoggerFactory(loggerFactory)  //tie-up DbContext with LoggerFactory object
                             .EnableSensitiveDataLogging()
-                            .UseSqlServer(configuration.GetConnectionString("SqlDB"));
+                            .UseSqlServer(configuration.GetConnectionString("SqlDB"),
+                                options => options.EnableRetryOnFailure());
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
-        } 
+        }
         #endregion
     }
 }

@@ -1,73 +1,71 @@
 {
-  "RD": {
+  "CreateNew: 1": {
     "firstName": "Rahul",
     "lastName": "Dravid",
     "age": 40,
-    "Address": "Banglore"
-  },
-  "ST": {
-    "firstName": "Sachin",
-    "lastName": "Tendulkar",
-    "age": 42,
-    "Address": "Bombay"
-  },
-  "Post1": {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "firstName": "Rahul",
-    "lastName": "Dravid",
-    "age": 40,
-    "studentDetail": {
-      "id": "C3025817-A6AE-4D87-8EDE-FC353AEDD08C",
-      "address": "Banglore",
-      "additionalInformation": "Very good Batsman",
-      "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-    },
-    "evaluations": [
-      {
-        "id": "CB62DA85-20AF-4334-BC53-0289E66B599A",
-        "grade": 10,
-        "additionalExplanation": "Good Job",
-        "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-      }
-    ],
+    "Address": "Banglore",
     "studentSubjects": [
       {
-        "studentId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-        "subjectId": "C91F51C0-3148-4A24-B2AE-ED7338413EE7",
-        "subject": {
-          "id": "C91F51C0-3148-4A24-B2AE-ED7338413EE7",
-          "subjectName": "Oracle"
-        }
+        "subjectId": 1
+      },
+      {
+        "subjectId": 2
       }
     ]
   },
-  "Post2": {
-    "id": "61E5E7D9-A184-4D10-B1B0-42AE77B07C71",
-    "firstName": "Rahul",
-    "lastName": "Dravid",
+  "CreateNew: 2": {
+    "firstName": "Sachin",
+    "lastName": "Tendulkar",
     "age": 40,
-    "studentDetail": {
-      "id": "760FC871-9D93-4243-A446-55F5F35872BB",
-      "address": "Banglore",
-      "additionalInformation": "Very good Batsman",
-      "studentId": "61E5E7D9-A184-4D10-B1B0-42AE77B07C71"
-    },
-    "evaluations": [
-      {
-        "id": "DC91C3B5-18C1-4EBB-9A36-B454CE5EDD8A",
-        "grade": 10,
-        "additionalExplanation": "Good Job",
-        "studentId": "61E5E7D9-A184-4D10-B1B0-42AE77B07C71"
-      }
-    ],
+    "Address": "Mumbai",
     "studentSubjects": [
       {
-        "studentId": "61E5E7D9-A184-4D10-B1B0-42AE77B07C71",
-        "subjectId": "F8F3D2D6-C89D-4A6C-9891-3D04D15D7F8E",
-        "subject": {
-          "id": "F8F3D2D6-C89D-4A6C-9891-3D04D15D7F8E",
-          "subjectName": "AWS"
-        }
+        "subjectId": 1
+      },
+      {
+        "subjectId": 2
+      }
+    ],
+    "evaluations": [
+      {
+        "grade": 11,
+        "additionalExplanation": "Very Good Batsman"
+      },
+      {
+        "grade": 12,
+        "additionalExplanation": "Good Bowler"
+      },
+      {
+        "grade": 5,
+        "additionalExplanation": "Poor Keeping"
+      }
+    ]
+  },
+  "CreateNew: 3": {
+    "firstName": "Kapil",
+    "lastName": "Dev",
+    "age": 60,
+    "Address": "Chandigarh",
+    "studentSubjects": [
+      {
+        "subjectId": 3
+      },
+      {
+        "subjectId": 4
+      }
+    ],
+    "evaluations": [
+      {
+        "grade": 11,
+        "additionalExplanation": "Very Good Batsman"
+      },
+      {
+        "grade": 12,
+        "additionalExplanation": "Very Good Bowler"
+      },
+      {
+        "grade": 5,
+        "additionalExplanation": "Poor Keeping"
       }
     ]
   }

@@ -23,7 +23,6 @@ namespace EntityFrameworkCore.APIModel
 
         public string Address { get; set; }
 
-
         public ICollection<EvaluationEntity> Evaluations { get; set; }
 
         public ICollection<StudentSubjectEntity> StudentSubjects { get; set; }

@@ -42,9 +42,9 @@ namespace EntityFrameworkCore.Repository
             return _context.Set<T>().Where(expression).AsNoTracking();
         }
 
-        public Task<T> FindFirstAsync(Expression<Func<T, bool>> expression)
+        public async Task<T> FindFirstAsync(Expression<Func<T, bool>> expression)
         {
-            return _context.Set<T>().Where(expression).FirstOrDefaultAsync();
+            return await _context.Set<T>().FirstOrDefaultAsync(expression);
         }
 
         public void Update(T entity)

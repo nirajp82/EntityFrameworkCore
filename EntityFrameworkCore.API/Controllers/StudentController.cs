@@ -68,7 +68,7 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Post([FromBody] StudentEntity student)
         {
-            student.Id = await _studentEngine.AddAsync(student);
+            student = await _studentEngine.AddAsync(student);
             return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
         }
 
@@ -90,9 +90,9 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Delete(long studentId)
+        public async Task<IActionResult> Delete(long studentId)
         {
-            _studentEngine.DeleteAsync(studentId);
+            await _studentEngine.DeleteAsync(studentId);
             return NoContent();
         }
         #endregion

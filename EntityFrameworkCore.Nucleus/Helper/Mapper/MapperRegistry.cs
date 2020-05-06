@@ -12,8 +12,7 @@ namespace EntityFrameworkCore.Nucleus
         {
             Map<string, string>().ConvertUsing(str => string.IsNullOrWhiteSpace(str) ? str : str.Trim());
 
-            var mapExpr = Map<StudentEntity, Student>();
-            mapExpr.ForMember(dest => dest.StudentAddress,
+            Map<StudentEntity, Student>().ForMember(dest => dest.StudentAddress,
                 opt =>
                 {
                     opt.MapFrom(src => !string.IsNullOrWhiteSpace(src.Address)
@@ -21,10 +20,11 @@ namespace EntityFrameworkCore.Nucleus
                     : null);
                 });
 
-            Map<Student, StudentEntity>();
-
-            Map<StudentAddress, StudentAddressEntity>();
-            Map<StudentAddressEntity, StudentAddress>();
+            Map<Student, StudentEntity>().ForMember(dest => dest.Address,
+                opt =>
+                {
+                    opt.MapFrom(src => src.StudentAddress != null ? src.StudentAddress.Address : null);
+                });
 
             Map<StudentSubject, StudentSubjectEntity>();
             Map<StudentSubjectEntity, StudentSubject>();

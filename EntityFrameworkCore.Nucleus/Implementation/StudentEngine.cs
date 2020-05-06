@@ -52,11 +52,48 @@ namespace EntityFrameworkCore.Nucleus
             return _mapperHelper.MapList<Student, StudentEntity>(students);
         }
 
-        public void Update(StudentEntity entity)
+        public async Task<StudentEntity> Update(StudentEntity entity)
         {
-            Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
-            _unitOfWork.StudentRepository.Update(student);
+            Student dbStudent = await _unitOfWork.StudentRepository.FindFirstIncludeAllAsync(entity.Id);
+            UpdateStudent(dbStudent, entity);
+            _unitOfWork.StudentRepository.Update(dbStudent);
             _unitOfWork.Save();
+            return _mapperHelper.Map<Student, StudentEntity>(dbStudent);
+        }
+        #endregion
+
+        #region Private Methods
+
+        private void UpdateStudent(Student dbStudent, StudentEntity entity)
+        {
+            dbStudent.Age = entity.Age;
+            dbStudent.FirstName = entity.FirstName;
+            dbStudent.MiddleInitial = entity.MiddleInitial;
+            dbStudent.LastName = entity.LastName;
+            UpdateStudentAddress(dbStudent, entity);
+            UpdateEnrollment(dbStudent, entity);
+            UpdateEvaluation(dbStudent, entity);
+        }
+
+        private static void UpdateStudentAddress(Student dbStudent, StudentEntity entity)
+        {
+            if (!string.IsNullOrWhiteSpace(entity.Address))
+            {
+                dbStudent.StudentAddress = dbStudent.StudentAddress ?? new StudentAddress();
+                dbStudent.StudentAddress.Address = entity.Address;
+            }
+            else //Delete an Student Address
+                dbStudent.StudentAddress = null;
+        }
+
+        private static void UpdateEnrollment(Student dbStudent, StudentEntity entity)
+        {
+           
+        }
+
+        private static void UpdateEvaluation(Student dbStudent, StudentEntity entity)
+        {
+
         }
         #endregion
     }

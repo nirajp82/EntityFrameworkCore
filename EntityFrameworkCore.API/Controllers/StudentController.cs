@@ -66,24 +66,24 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post([FromBody] StudentEntity student)
+        public async Task<IActionResult> Post([FromBody] StudentEntity entity)
         {
-            student = await _studentEngine.AddAsync(student);
-            return CreatedAtAction(nameof(Get), new { id = student.Id }, student);
+            entity = await _studentEngine.AddAsync(entity);
+            return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
         }
 
 
         [HttpPut("{studentId}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult PUT(long studentId, [FromBody] StudentEntity student)
+        public async Task<IActionResult> Put(long studentId, [FromBody] StudentEntity entity)
         {
-            if (studentId != student.Id)
+            if (studentId != entity.Id)
                 return BadRequest();
 
-            _studentEngine.Update(student);
-            return NoContent();
+            entity = await _studentEngine.Update(entity);
+            return Ok(entity);
         }
 
         [HttpDelete("{studentId}")]

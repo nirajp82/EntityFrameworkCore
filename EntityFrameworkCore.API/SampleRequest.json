@@ -68,5 +68,44 @@
         "additionalExplanation": "Poor Keeping"
       }
     ]
+  },
+  "UpdateRecord": {
+    {
+      "firstName": "Saurav",
+      "lastName": "Ganguly",
+      "age": 46,
+      "address": "Kolkatta",
+      "studentEnrollments": [
+        {
+          "grade": 1,
+          "additionalExplanation": "Very Good Batsman",
+          "studentId": 14,
+          "id": 45
+        },
+        {
+          "grade": 2,
+          "additionalExplanation": "Ok Bowling",
+          "studentId": 14
+        },
+        {
+          "grade": 3,
+          "additionalExplanation": "Very good allrounder",
+          "studentId": 14
+        }
+      ],
+      "studentSubjects": [
+        {
+          "studentId": 14,
+          "subjectId": 9,
+          "id": 19
+        },
+        {
+          "studentId": 14,
+          "subjectId": 2
+        }
+      ],
+      "fullName": "Ganguly, Saurav ",
+      "id": 14
+    }
   }
 }

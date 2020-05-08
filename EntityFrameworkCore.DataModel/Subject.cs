@@ -10,7 +10,7 @@ namespace EntityFrameworkCore.DataModel
         [Key]
         [Column("SubjectId")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public override long Id { get; set; }
 
         [MaxLength(50, ErrorMessage = DataModelConst.MaxLenErrorMsg)]
         public string SubjectName { get; set; }

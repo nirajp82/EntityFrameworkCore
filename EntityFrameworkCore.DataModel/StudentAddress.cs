@@ -9,7 +9,7 @@ namespace EntityFrameworkCore.DataModel
         [Key]
         [Column("StudentAddressId")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public override long Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = DataModelConst.MaxLenErrorMsg)]

@@ -2,7 +2,7 @@
 
 namespace EntityFrameworkCore.APIModel
 {
-    public class StudentSubjectEntity
+    public class StudentSubjectEntity : BaseEntity
     {
         public long StudentId { get; set; }
 

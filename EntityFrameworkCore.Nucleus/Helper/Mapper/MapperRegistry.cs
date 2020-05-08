@@ -29,8 +29,8 @@ namespace EntityFrameworkCore.Nucleus
             Map<StudentSubject, StudentSubjectEntity>();
             Map<StudentSubjectEntity, StudentSubject>();
 
-            Map<Evaluation, EvaluationEntity>();
-            Map<EvaluationEntity, Evaluation>();
+            Map<StudentEnrollment, StudentEnrollmentEntity>();
+            Map<StudentEnrollmentEntity, StudentEnrollment>();
 
             Map<Subject, SubjectEntity>();
             Map<SubjectEntity, Subject>();

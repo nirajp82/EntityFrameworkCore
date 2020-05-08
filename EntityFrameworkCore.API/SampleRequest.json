@@ -26,7 +26,7 @@
         "subjectId": 2
       }
     ],
-    "evaluations": [
+    "StudentEnrollments": [
       {
         "grade": 11,
         "additionalExplanation": "Very Good Batsman"
@@ -54,7 +54,7 @@
         "subjectId": 4
       }
     ],
-    "evaluations": [
+    "StudentEnrollments": [
       {
         "grade": 11,
         "additionalExplanation": "Very Good Batsman"

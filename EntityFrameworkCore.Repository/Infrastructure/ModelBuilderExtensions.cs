@@ -51,28 +51,28 @@ namespace EntityFrameworkCore.Repository
             //        StudentId = student1Id
             //    });
 
-            //modelBuilder.Entity<Evaluation>().HasData(
-            //   new Evaluation
+            //modelBuilder.Entity<StudentEnrollment>().HasData(
+            //   new StudentEnrollment
             //   {
-            //       Id = evaluation1Id,
+            //       Id = StudentEnrollment1Id,
             //       Grade = 12,
             //       AdditionalExplanation = "Excellent",
             //       StudentId = student1Id
             //   });
 
-            //modelBuilder.Entity<Evaluation>().HasData(
-            //   new Evaluation
+            //modelBuilder.Entity<StudentEnrollment>().HasData(
+            //   new StudentEnrollment
             //   {
-            //       Id = evaluation2Id,
+            //       Id = StudentEnrollment2Id,
             //       Grade = 11,
             //       AdditionalExplanation = "Outstanding",
             //       StudentId = student1Id
             //   });
 
-            //modelBuilder.Entity<Evaluation>().HasData(
-            //  new Evaluation
+            //modelBuilder.Entity<StudentEnrollment>().HasData(
+            //  new StudentEnrollment
             //  {
-            //      Id = evaluation4Id,
+            //      Id = StudentEnrollment4Id,
             //      Grade = 12,
             //      AdditionalExplanation = "Very good",
             //      StudentId = student1Id
@@ -119,10 +119,10 @@ namespace EntityFrameworkCore.Repository
             //        StudentId = student2Id
             //    });
 
-            //modelBuilder.Entity<Evaluation>().HasData(
-            //   new Evaluation
+            //modelBuilder.Entity<StudentEnrollment>().HasData(
+            //   new StudentEnrollment
             //   {
-            //       Id = evaluation3Id,
+            //       Id = StudentEnrollment3Id,
             //       Grade = 11,
             //       AdditionalExplanation = "Satisfactory",
             //       StudentId = student2Id

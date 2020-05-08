@@ -8,7 +8,7 @@ namespace EntityFrameworkCore.Repository
     {
         public void Configure(EntityTypeBuilder<Student> builder)
         {
-            builder.HasMany(e => e.Evaluations)
+            builder.HasMany(e => e.StudentEnrollments)
                 .WithOne(s => s.Student)
                 .HasForeignKey(s => s.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);

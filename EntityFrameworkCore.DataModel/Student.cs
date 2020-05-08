@@ -10,7 +10,7 @@ namespace EntityFrameworkCore.DataModel
         [Key]
         [Column("StudentId")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public override long Id { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = DataModelConst.MaxLenErrorMsg)]
@@ -27,7 +27,7 @@ namespace EntityFrameworkCore.DataModel
 
         public StudentAddress StudentAddress { get; set; }
 
-        public ICollection<Evaluation> Evaluations { get; set; }
+        public ICollection<StudentEnrollment> StudentEnrollments { get; set; }
 
         public ICollection<StudentSubject> StudentSubjects { get; set; }
     }

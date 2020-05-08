@@ -5,10 +5,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EntityFrameworkCore.APIModel
 {
-    public class SubjectEntity
+    public class SubjectEntity : BaseEntity
     {
-        public long Id { get; set; }
-
         [MaxLength(50, ErrorMessage = APIModelConst.MaxLenErrorMsg)]
         public string SubjectName { get; set; }
 

@@ -4,20 +4,53 @@ using EntityFrameworkCore.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EntityFrameworkCore.Repository.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20200508011855_AddedIdToStudentSubject")]
+    partial class AddedIdToStudentSubject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.3")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("EntityFrameworkCore.DataModel.Evaluation", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("EvaluationId")
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdditionalExplanation")
+                        .HasColumnType("VARCHAR(250)")
+                        .HasMaxLength(250);
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
+
+                    b.Property<long>("StudentId")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime>("UpdatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId");
+
+                    b.ToTable("Evaluation");
+                });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.Student", b =>
                 {
@@ -87,37 +120,6 @@ namespace EntityFrameworkCore.Repository.Migrations
                         .IsUnique();
 
                     b.ToTable("StudentAddress");
-                });
-
-            modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentEnrollment", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("StudentEnrollmentId")
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("AdditionalExplanation")
-                        .HasColumnType("VARCHAR(250)")
-                        .HasMaxLength(250);
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Grade")
-                        .HasColumnType("int");
-
-                    b.Property<long>("StudentId")
-                        .HasColumnType("bigint");
-
-                    b.Property<DateTime>("UpdatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("StudentId");
-
-                    b.ToTable("StudentEnrollment");
                 });
 
             modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentSubject", b =>
@@ -230,20 +232,20 @@ namespace EntityFrameworkCore.Repository.Migrations
                         });
                 });
 
+            modelBuilder.Entity("EntityFrameworkCore.DataModel.Evaluation", b =>
+                {
+                    b.HasOne("EntityFrameworkCore.DataModel.Student", "Student")
+                        .WithMany("Evaluations")
+                        .HasForeignKey("StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentAddress", b =>
                 {
                     b.HasOne("EntityFrameworkCore.DataModel.Student", "Student")
                         .WithOne("StudentAddress")
                         .HasForeignKey("EntityFrameworkCore.DataModel.StudentAddress", "StudentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("EntityFrameworkCore.DataModel.StudentEnrollment", b =>
-                {
-                    b.HasOne("EntityFrameworkCore.DataModel.Student", "Student")
-                        .WithMany("StudentEnrollments")
-                        .HasForeignKey("StudentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

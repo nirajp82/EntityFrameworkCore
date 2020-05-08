@@ -38,14 +38,13 @@ namespace EntityFrameworkCore.Nucleus
 
         public async Task DeleteAsync(long studentId)
         {
-            Student student = await _unitOfWork.StudentRepository.FindFirstAsync(e => e.Id == studentId);
-            _unitOfWork.StudentRepository.Delete(student);
+            await _unitOfWork.StudentRepository.DeleteAsync(studentId);
             _unitOfWork.Save();
         }
 
         public async Task<StudentEntity> FindAsync(long studentId)
         {
-            Student student = await _unitOfWork.StudentRepository.FindFirstIncludeAllAsync(studentId);
+            Student student = await _unitOfWork.StudentRepository.FindFirstAsync(studentId);
             return _mapperHelper.Map<Student, StudentEntity>(student);
         }
 
@@ -57,7 +56,7 @@ namespace EntityFrameworkCore.Nucleus
 
         public async Task<StudentEntity> Update(StudentEntity entity)
         {
-            Student dbStudent = await _unitOfWork.StudentRepository.FindFirstIncludeAllAsync(entity.Id);
+            Student dbStudent = await _unitOfWork.StudentRepository.FindFirstAsync(entity.Id);
             UpdateStudent(dbStudent, entity);
             _unitOfWork.StudentRepository.Update(dbStudent);
             _unitOfWork.Save();
@@ -66,19 +65,18 @@ namespace EntityFrameworkCore.Nucleus
         #endregion
 
         #region Private Methods
-
         private void UpdateStudent(Student dbStudent, StudentEntity entity)
         {
             dbStudent.Age = entity.Age;
             dbStudent.FirstName = entity.FirstName;
             dbStudent.MiddleInitial = entity.MiddleInitial;
             dbStudent.LastName = entity.LastName;
-            UpdateStudentAddress(dbStudent, entity);
+            UpdateAddress(dbStudent, entity);
+            UpdateSubject(dbStudent, entity);
             UpdateEnrollment(dbStudent, entity);
-            UpdateEvaluation(dbStudent, entity);
         }
 
-        private void UpdateStudentAddress(Student dbStudent, StudentEntity entity)
+        private void UpdateAddress(Student dbStudent, StudentEntity entity)
         {
             if (string.IsNullOrWhiteSpace(entity.Address))
             {
@@ -90,7 +88,7 @@ namespace EntityFrameworkCore.Nucleus
             dbStudent.StudentAddress.Address = entity.Address;
         }
 
-        private void UpdateEnrollment(Student dbStudent, StudentEntity entity)
+        private void UpdateSubject(Student dbStudent, StudentEntity entity)
         {
             //Remove all Student Subjects
             if (entity.StudentSubjects == null)
@@ -106,68 +104,75 @@ namespace EntityFrameworkCore.Nucleus
                 return;
             }
 
-            ManageStudentSubjects(dbStudent, entity);
+            ManageSubjects(dbStudent, entity);
         }
 
-        private void UpdateEvaluation(Student dbStudent, StudentEntity entity)
+        private void UpdateEnrollment(Student dbStudent, StudentEntity entity)
         {
             //Remove all Student Subjects
-            if (entity.Evaluations == null)
+            if (entity.StudentEnrollments == null)
             {
-                dbStudent.Evaluations = null;
+                dbStudent.StudentEnrollments = null;
                 return;
             }
 
             //Add All Student subjects
-            if (dbStudent.Evaluations == null)
+            if (dbStudent.StudentEnrollments == null)
             {
-                dbStudent.Evaluations = _mapperHelper.MapList<EvaluationEntity, Evaluation>(entity.Evaluations).ToList();
+                dbStudent.StudentEnrollments = _mapperHelper.MapList<StudentEnrollmentEntity, StudentEnrollment>(entity.StudentEnrollments).ToList();
                 return;
             }
 
-            ManageEvalutions(dbStudent, entity);
+            ManageEnrollment(dbStudent, entity);
         }
 
-        private void ManageStudentSubjects(Student dbStudent, StudentEntity entity)
+        private void ManageSubjects(Student dbStudent, StudentEntity entity)
         {
-            IEnumerable<long> dbSubIdList = dbStudent.StudentSubjects.Select(ss => ss.SubjectId).ToList();
-            IEnumerable<long> entitySubIdList = entity.StudentSubjects.Select(ss => ss.SubjectId);
+            IEnumerable<long> dbSubIdList = dbStudent.StudentSubjects.Select(ss => ss.Id).ToList();
+            IEnumerable<long> entitySubIdList = entity.StudentSubjects.Select(ss => ss.Id);
 
             //Remove subjects.
             foreach (var dbSubId in dbSubIdList.Where(dss => !entitySubIdList.Contains(dss)))
-            {
-                dbStudent.StudentSubjects.Remove(dbStudent.StudentSubjects.FirstOrDefault(ss => ss.SubjectId == dbSubId));
-            }
+                dbStudent.StudentSubjects.Remove(dbStudent.StudentSubjects.FirstOrDefault(ss => ss.Id == dbSubId));
 
-            //Add newly added subjects
-            foreach (var eSubId in entitySubIdList.Where(ess => !dbSubIdList.Contains(ess)))
+
+            //Add/Update StudentEnrollments
+            foreach (var studentSubjectEntity in entity.StudentSubjects)
             {
-                StudentSubject studentSubject = _mapperHelper.Map<StudentSubjectEntity, StudentSubject>(entity.StudentSubjects.FirstOrDefault(s => s.SubjectId == eSubId));
-                dbStudent.StudentSubjects.Add(studentSubject);
+                if (studentSubjectEntity.Id == 0)
+                    dbStudent.StudentSubjects.Add(_mapperHelper.Map<StudentSubjectEntity, StudentSubject>(studentSubjectEntity));
+                else
+                {
+                    var dbStudentSubject = dbStudent.StudentSubjects.FirstOrDefault(e => e.Id == studentSubjectEntity.Id);
+                    if (dbStudentSubject != null)
+                    {
+                        dbStudentSubject.SubjectId = studentSubjectEntity.SubjectId;
+                    }
+                }
             }
         }
 
-        private void ManageEvalutions(Student dbStudent, StudentEntity entity)
+        private void ManageEnrollment(Student dbStudent, StudentEntity entity)
         {
-            IEnumerable<long> dbEvalList = dbStudent.Evaluations.Select(ss => ss.Id).ToList();
-            IEnumerable<long> entityEvalIdList = entity.Evaluations.Select(ss => ss.Id);
+            IEnumerable<long> dbEnrollIdList = dbStudent.StudentEnrollments.Select(ss => ss.Id).ToList();
+            IEnumerable<long> entityEnrollIdList = entity.StudentEnrollments.Select(ss => ss.Id);
 
-            //Remove Evaluations.
-            foreach (var dbEvalId in dbEvalList.Where(dss => !entityEvalIdList.Contains(dss)))
-                dbStudent.Evaluations.Remove(dbStudent.Evaluations.FirstOrDefault(ss => ss.Id == dbEvalId));
+            //Remove StudentEnrollments.
+            foreach (var dbEvalId in dbEnrollIdList.Where(dss => !entityEnrollIdList.Contains(dss)))
+                dbStudent.StudentEnrollments.Remove(dbStudent.StudentEnrollments.FirstOrDefault(ss => ss.Id == dbEvalId));
 
-            //Add/Update Evaluations
-            foreach (var evaluationEntity in entity.Evaluations)
-            {                
-                if (evaluationEntity.Id == 0)
-                    dbStudent.Evaluations.Add(_mapperHelper.Map<EvaluationEntity, Evaluation>(evaluationEntity));
+            //Add/Update StudentEnrollments
+            foreach (var StudentEnrollmentEntity in entity.StudentEnrollments)
+            {
+                if (StudentEnrollmentEntity.Id == 0)
+                    dbStudent.StudentEnrollments.Add(_mapperHelper.Map<StudentEnrollmentEntity, StudentEnrollment>(StudentEnrollmentEntity));
                 else
                 {
-                    var dbEvaluation = dbStudent.Evaluations.FirstOrDefault(e => e.Id == evaluationEntity.Id);
-                    if (dbEvaluation != null)
+                    var dbStudentEnrollment = dbStudent.StudentEnrollments.FirstOrDefault(e => e.Id == StudentEnrollmentEntity.Id);
+                    if (dbStudentEnrollment != null)
                     {
-                        dbEvaluation.Grade = evaluationEntity.Grade;
-                        dbEvaluation.AdditionalExplanation = evaluationEntity.AdditionalExplanation;
+                        dbStudentEnrollment.Grade = StudentEnrollmentEntity.Grade;
+                        dbStudentEnrollment.AdditionalExplanation = StudentEnrollmentEntity.AdditionalExplanation;
                     }
                 }
             }

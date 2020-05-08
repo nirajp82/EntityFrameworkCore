@@ -4,12 +4,12 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityFrameworkCore.DataModel
 {
-    public class Evaluation :BaseModel
+    public class StudentEnrollment :BaseModel
     {
         [Key]
-        [Column("EvaluationId")]
+        [Column("StudentEnrollmentId")]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
+        public override long Id { get; set; }
 
         [Required]
         public int Grade { get; set; }

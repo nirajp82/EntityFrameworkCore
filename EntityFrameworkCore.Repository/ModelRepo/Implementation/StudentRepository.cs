@@ -5,6 +5,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Repository
@@ -18,14 +19,25 @@ namespace EntityFrameworkCore.Repository
         #endregion
 
         #region Public Method
-        public async Task<Student> FindFirstIncludeAllAsync(long studentId)
+        public IEnumerable<Student> FindAll()
         {
-            return await _context.Student.Where(s => s.Id == studentId)
-                                .Include(s => s.Evaluations)
-                                .Include(s => s.StudentAddress)
-                                .Include(s => s.StudentSubjects)
-                                .ThenInclude(ss => ss.Subject)
-                                .FirstOrDefaultAsync();
+            IEnumerable<string> includes = new List<string>{
+                                                    nameof(Student.StudentAddress),
+                                                    nameof(Student.StudentEnrollments),
+                                                    nameof(Student.StudentSubjects)
+                                                };
+            return base.FindAll(includes);
+        }
+
+        public async Task<Student> FindFirstAsync(long studentId)
+        {
+            IEnumerable<string> includes = new List<string>{
+                                                    nameof(Student.StudentAddress),
+                                                    nameof(Student.StudentEnrollments),
+                                                };
+            IQueryable<Student> queryable = base.Find(s => s.Id == studentId, includes, isNoTracking: false);
+            return await queryable.Include(s => s.StudentSubjects)
+                    .ThenInclude(ss => ss.Subject).FirstOrDefaultAsync();
         }
 
         public IEnumerable<Student> ExecuteProcedure()
@@ -43,11 +55,11 @@ namespace EntityFrameworkCore.Repository
 
             return _context.Student
                 .FromSqlInterpolated($"SELECT * FROM dbo.SearchStudentBySubject({searchTerm})")
-                .Include(b => b.Evaluations)
+                .Include(b => b.StudentEnrollments)
                 .Where(b => b.Age > 13)
                 .AsNoTracking()
                 .ToList();
-        }
+        }       
         #endregion
     }
 }

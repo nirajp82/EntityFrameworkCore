@@ -9,7 +9,7 @@ namespace EntityFrameworkCore.Repository
     {
         public void Configure(EntityTypeBuilder<StudentSubject> builder)
         {
-            builder.HasKey(ss => new { ss.StudentId, ss.SubjectId });
+            //builder.HasKey(ss => new { ss.StudentId, ss.SubjectId });
 
             builder.HasOne(ss => ss.Student)
                 .WithMany(s => s.StudentSubjects)

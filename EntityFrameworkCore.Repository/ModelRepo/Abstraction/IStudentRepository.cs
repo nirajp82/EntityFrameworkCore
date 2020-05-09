@@ -8,7 +8,7 @@ namespace EntityFrameworkCore.Repository
 {
     public interface IStudentRepository
     {
-        Task AddAsync(Student entity);
+        void Add(Student entity);
 
         void Update(Student entity);
 

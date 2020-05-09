@@ -24,9 +24,9 @@ namespace EntityFrameworkCore.Repository
 
 
         #region Public Methods
-        public async Task AddAsync(T entity)
+        public void Add(T entity)
         {
-            await _context.Set<T>().AddAsync(entity);
+             _context.Set<T>().Add(entity);
         }
 
 

@@ -28,10 +28,10 @@ namespace EntityFrameworkCore.Nucleus
 
 
         #region Public Methods
-        public async Task<StudentEntity> AddAsync(StudentEntity entity)
+        public StudentEntity Add(StudentEntity entity)
         {
             Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
-            await _unitOfWork.StudentRepository.AddAsync(student);
+            _unitOfWork.StudentRepository.Add(student);
             _unitOfWork.Save();
             return _mapperHelper.Map<Student, StudentEntity>(student);
         }

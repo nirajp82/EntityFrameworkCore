@@ -66,9 +66,9 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Post([FromBody] StudentEntity entity)
+        public IActionResult Post([FromBody] StudentEntity entity)
         {
-            entity = await _studentEngine.AddAsync(entity);
+            entity = _studentEngine.Add(entity);
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
         }
 

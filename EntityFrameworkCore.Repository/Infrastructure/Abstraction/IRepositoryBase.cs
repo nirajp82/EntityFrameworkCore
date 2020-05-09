@@ -9,7 +9,7 @@ namespace EntityFrameworkCore.Repository
 {
     public interface IRepositoryBase<T> where T : BaseModel
     {
-        Task AddAsync(T entity);
+        void Add(T entity);
 
         void Update(T entity);
 

@@ -5,10 +5,10 @@ using Microsoft.Data.SqlClient;
 
 namespace EntityFrameworkCore.Nucleus
 {
-    internal class EntityModelMapperRegistry : Profile
+    internal class MapperRegistry : Profile
     {
         #region Constructor
-        public EntityModelMapperRegistry()
+        public MapperRegistry()
         {
             Map<string, string>().ConvertUsing(str => string.IsNullOrWhiteSpace(str) ? str : str.Trim());
 

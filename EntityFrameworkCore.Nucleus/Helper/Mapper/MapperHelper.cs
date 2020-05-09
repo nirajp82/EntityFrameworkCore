@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace EntityFrameworkCore.Nucleus
 {
-    public class MapperHelper : IMapperHelper
+    internal class MapperHelper : IMapperHelper
     {
         #region Private Members
         private IMapper _mapper { get; }

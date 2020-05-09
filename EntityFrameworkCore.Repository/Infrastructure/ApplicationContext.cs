@@ -4,6 +4,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Console;
 using System;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Repository
 {
@@ -44,9 +46,24 @@ namespace EntityFrameworkCore.Repository
 
         public override int SaveChanges()
         {
+            SetAuditValues();
+            return base.SaveChanges();
+        }       
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetAuditValues();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+        #endregion
+
+
+        #region Private Method
+        private void SetAuditValues()
+        {
             var entries = ChangeTracker.Entries()
-                            .Where(e => e.Entity is BaseModel &&
-                            (e.State == EntityState.Added || e.State == EntityState.Modified));
+                                        .Where(e => e.Entity is BaseModel &&
+                                        (e.State == EntityState.Added || e.State == EntityState.Modified));
 
             foreach (var entityEntry in entries)
             {
@@ -54,8 +71,6 @@ namespace EntityFrameworkCore.Repository
                 if (entityEntry.State == EntityState.Added)
                     ((BaseModel)entityEntry.Entity).CreatedDate = DateTime.Now;
             }
-
-            return base.SaveChanges();
         }
         #endregion
     }

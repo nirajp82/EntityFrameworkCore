@@ -28,18 +28,18 @@ namespace EntityFrameworkCore.Nucleus
 
 
         #region Public Methods
-        public StudentEntity Add(StudentEntity entity)
+        public async Task<StudentEntity> AddAsync(StudentEntity entity)
         {
             Student student = _mapperHelper.Map<StudentEntity, Student>(entity);
             _unitOfWork.StudentRepository.Add(student);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return _mapperHelper.Map<Student, StudentEntity>(student);
         }
 
         public async Task DeleteAsync(long studentId)
         {
             await _unitOfWork.StudentRepository.DeleteAsync(studentId);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
         }
 
         public async Task<StudentEntity> FindAsync(long studentId)
@@ -48,22 +48,23 @@ namespace EntityFrameworkCore.Nucleus
             return _mapperHelper.Map<Student, StudentEntity>(student);
         }
 
-        public IEnumerable<StudentEntity> FindAll()
+        public async Task<IEnumerable<StudentEntity>> FindAllAsync()
         {
-            IEnumerable<Student> students = _unitOfWork.StudentRepository.FindAll();
+            IEnumerable<Student> students = await _unitOfWork.StudentRepository.FindAllAsync();
             return _mapperHelper.MapList<Student, StudentEntity>(students);
         }
 
-        public async Task<StudentEntity> Update(StudentEntity entity)
+        public async Task<StudentEntity> UpdateAsync(StudentEntity entity)
         {
             Student dbStudent = await _unitOfWork.StudentRepository.FindFirstAsync(entity.Id);
             UpdateStudent(dbStudent, entity);
             _unitOfWork.StudentRepository.Update(dbStudent);
-            _unitOfWork.Save();
+            await _unitOfWork.SaveAsync();
             return _mapperHelper.Map<Student, StudentEntity>(dbStudent);
         }
         #endregion
 
+      
         #region Private Methods
         private void UpdateStudent(Student dbStudent, StudentEntity entity)
         {

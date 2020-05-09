@@ -1,4 +1,6 @@
-﻿namespace EntityFrameworkCore.Repository
+﻿using System.Threading.Tasks;
+
+namespace EntityFrameworkCore.Repository
 {
     internal class UnitOfWork : IUnitOfWork
     {
@@ -31,9 +33,9 @@
 
 
         #region Public Methods        
-        public void Save()
+        public async Task<int> SaveAsync()
         {
-            _context.SaveChanges();
+            return await _context.SaveChangesAsync();
         }
         #endregion
     }

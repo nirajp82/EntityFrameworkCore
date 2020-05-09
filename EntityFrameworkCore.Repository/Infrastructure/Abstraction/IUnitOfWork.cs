@@ -1,8 +1,11 @@
-﻿namespace EntityFrameworkCore.Repository
+﻿using System.Threading.Tasks;
+
+namespace EntityFrameworkCore.Repository
 {
     public interface IUnitOfWork
     {
         public IStudentRepository StudentRepository { get; }
-        void Save();
+
+        Task<int> SaveAsync();
     }
 }

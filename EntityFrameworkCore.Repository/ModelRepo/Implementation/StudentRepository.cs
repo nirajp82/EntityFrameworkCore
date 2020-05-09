@@ -19,14 +19,14 @@ namespace EntityFrameworkCore.Repository
         #endregion
 
         #region Public Method
-        public IEnumerable<Student> FindAll()
+        public async Task<IEnumerable<Student>> FindAllAsync()
         {
             IEnumerable<string> includes = new List<string>{
                                                     nameof(Student.StudentAddress),
                                                     nameof(Student.StudentEnrollments),
                                                     nameof(Student.StudentSubjects)
                                                 };
-            return base.FindAll(includes);
+            return await base.FindAll(includes).ToListAsync();
         }
 
         public async Task<Student> FindFirstAsync(long studentId)
@@ -59,7 +59,7 @@ namespace EntityFrameworkCore.Repository
                 .Where(b => b.Age > 13)
                 .AsNoTracking()
                 .ToList();
-        }       
+        }
         #endregion
     }
 }

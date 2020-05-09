@@ -7,10 +7,14 @@ namespace EntityFrameworkCore.Nucleus
 {
     public interface IStudentEngine
     {
-        IEnumerable<StudentEntity> FindAll();
+        Task<IEnumerable<StudentEntity>> FindAllAsync();
+
         Task<StudentEntity> FindAsync(long studentId);
-        StudentEntity Add(StudentEntity entity);
-        Task<StudentEntity> Update(StudentEntity entity);
+
+        Task<StudentEntity> AddAsync(StudentEntity entity);
+
+        Task<StudentEntity> UpdateAsync(StudentEntity entity);
+
         Task DeleteAsync(long studentId);
     }
 }

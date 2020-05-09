@@ -16,6 +16,6 @@ namespace EntityFrameworkCore.Repository
 
         Task<Student> FindFirstAsync(long studentId);
 
-        IEnumerable<Student> FindAll();
+        Task<IEnumerable<Student>> FindAllAsync();
     }
 }

@@ -36,9 +36,9 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(typeof(IEnumerable<StudentEntity>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Get()
+        public async Task<IActionResult> Get()
         {
-            var students = _studentEngine.FindAll();
+            var students = await _studentEngine.FindAllAsync();
             if (students?.Any() == true)
                 return Ok(students);
             else
@@ -66,9 +66,9 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Post([FromBody] StudentEntity entity)
+        public async Task<IActionResult> Post([FromBody] StudentEntity entity)
         {
-            entity = _studentEngine.Add(entity);
+            entity = await _studentEngine.AddAsync(entity);
             return CreatedAtAction(nameof(Get), new { id = entity.Id }, entity);
         }
 
@@ -82,7 +82,7 @@ namespace EntityFrameworkCore.API.Controllers
             if (studentId != entity.Id)
                 return BadRequest();
 
-            entity = await _studentEngine.Update(entity);
+            entity = await _studentEngine.UpdateAsync(entity);
             return Ok(entity);
         }
 

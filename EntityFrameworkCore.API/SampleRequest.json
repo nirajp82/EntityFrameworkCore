@@ -70,7 +70,6 @@
     ]
   },
   "UpdateRecord": {
-    {
       "firstName": "Saurav",
       "lastName": "Ganguly",
       "age": 46,
@@ -78,34 +77,25 @@
       "studentEnrollments": [
         {
           "grade": 1,
-          "additionalExplanation": "Very Good Batsman",
-          "studentId": 14,
-          "id": 45
+          "additionalExplanation": "Very Good Batsman"
         },
         {
           "grade": 2,
-          "additionalExplanation": "Ok Bowling",
-          "studentId": 14
+          "additionalExplanation": "Ok Bowling"
         },
         {
           "grade": 3,
-          "additionalExplanation": "Very good allrounder",
-          "studentId": 14
+          "additionalExplanation": "Very good allrounder"
         }
       ],
       "studentSubjects": [
         {
-          "studentId": 14,
-          "subjectId": 9,
-          "id": 19
+          "subjectId": 9
         },
         {
-          "studentId": 14,
           "subjectId": 2
         }
-      ],
-      "fullName": "Ganguly, Saurav ",
-      "id": 14
+      ]
     }
   }
 }

@@ -3,11 +3,13 @@
     "windowsAuthentication": true,
     "anonymousAuthentication": false,
     "iisExpress": {
-      "applicationUrl": "http://localhost:7537"
+      "applicationUrl": "http://localhost:90",
+      "sslPort": 0
     }
   },
+  "$schema": "http://json.schemastore.org/launchsettings.json",
   "profiles": {
-    "IIS Express": {
+    "SocialNetwork.API": {
       "commandName": "IISExpress",
       "launchBrowser": true,
       "launchUrl": "swagger",

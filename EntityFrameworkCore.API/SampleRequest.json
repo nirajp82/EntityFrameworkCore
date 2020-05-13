@@ -70,32 +70,28 @@
     ]
   },
   "UpdateRecord": {
-      "firstName": "Saurav",
-      "lastName": "Ganguly",
-      "age": 46,
-      "address": "Kolkatta",
-      "studentEnrollments": [
-        {
-          "grade": 1,
-          "additionalExplanation": "Very Good Batsman"
-        },
-        {
-          "grade": 2,
-          "additionalExplanation": "Ok Bowling"
-        },
-        {
-          "grade": 3,
-          "additionalExplanation": "Very good allrounder"
-        }
-      ],
-      "studentSubjects": [
-        {
-          "subjectId": 9
-        },
-        {
-          "subjectId": 2
-        }
-      ]
-    }
+    "id": 18,
+    "firstName": "MS",
+    "lastName": "Dhoni",
+    "age": 38,
+    "address": "Ranchi",
+    "studentEnrollments": [
+      {
+        "grade": 11,
+        "additionalExplanation": "Changed from 1 to 11"
+      },
+      {
+        "grade": 2,
+        "additionalExplanation": "Good Keeping Updated"
+      }
+    ],
+    "studentSubjects": [
+      {
+        "subjectId": 1
+      },
+      {
+        "subjectId": 3
+      }
+    ]
+  } 
   }
-}

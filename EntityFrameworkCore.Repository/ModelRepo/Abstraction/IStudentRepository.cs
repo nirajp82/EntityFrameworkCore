@@ -10,7 +10,7 @@ namespace EntityFrameworkCore.Repository
     {
         void Add(Student entity);
 
-        void Update(Student entity);
+        Task<Student> UpdateAsync(Student entity);
 
         Task DeleteAsync(long studentId);
 

@@ -21,8 +21,12 @@ namespace EntityFrameworkCore.Repository
             //(and therefore a separate DbContext instance).
             services.AddDbContextPool<ApplicationContext>(optionsBuilder =>
             {
-                optionsBuilder.UseLoggerFactory(loggerFactory)  //tie-up DbContext with LoggerFactory object
-                            .EnableSensitiveDataLogging()
+#if DEBUG
+                //tie-up DbContext with LoggerFactory object
+                optionsBuilder = optionsBuilder.UseLoggerFactory(loggerFactory)
+                 .EnableSensitiveDataLogging();  
+#endif
+                optionsBuilder
                             .UseSqlServer(configuration.GetConnectionString("SqlDB"),
                                 options => options.EnableRetryOnFailure());
             });

@@ -54,9 +54,9 @@ namespace EntityFrameworkCore.API.Controllers
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Get(long studentId)
         {
-            var student = await _studentEngine.FindAsync(studentId);
-            if (student != null)
-                return Ok(student);
+            StudentEntity entity = await _studentEngine.FindAsync(studentId);
+            if (entity != null)
+                return Ok(entity);
             else
                 return NotFound();
         }
@@ -74,7 +74,7 @@ namespace EntityFrameworkCore.API.Controllers
 
 
         [HttpPut("{studentId}")]
-        [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(StudentEntity), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> Put(long studentId, [FromBody] StudentEntity entity)

@@ -31,6 +31,7 @@ namespace EntityFrameworkCore.Repository
                                 options => options.EnableRetryOnFailure());
             });
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddSingleton<IModelHelper, ModelHelper>();
         }
         #endregion
     }

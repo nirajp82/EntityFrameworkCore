@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using EntityFrameworkCore.APIModel;
 using EntityFrameworkCore.DataModel;
-using Microsoft.Data.SqlClient;
 
 namespace EntityFrameworkCore.Nucleus
 {

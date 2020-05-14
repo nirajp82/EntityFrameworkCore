@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace EntityFrameworkCore.APIModel
+﻿namespace EntityFrameworkCore.APIModel
 {
     public class StudentSubjectEntity : BaseEntity
     {

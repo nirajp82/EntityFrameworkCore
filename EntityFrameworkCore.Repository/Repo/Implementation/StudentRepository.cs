@@ -1,11 +1,7 @@
 ﻿using EntityFrameworkCore.DataModel;
-using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EntityFrameworkCore.Repository
@@ -13,8 +9,14 @@ namespace EntityFrameworkCore.Repository
     internal class StudentRepository : RepositoryBase<Student>, IStudentRepository
     {
         #region Constructor
-        public StudentRepository(ApplicationContext context) : base(context)
+        private IModelHelper _modelHelper { get; }
+        #endregion
+
+
+        #region Constructor
+        public StudentRepository(ApplicationContext context, IModelHelper modelHelper) : base(context)
         {
+            _modelHelper = modelHelper;
         }
         #endregion
 
@@ -85,83 +87,22 @@ namespace EntityFrameworkCore.Repository
 
         private void UpdateSubject(Student dbStudent, Student entity)
         {
-            //Remove all Student Subjects
-            if (entity.StudentSubjects == null)
+            static void delSrcDestMapper(StudentSubject src, StudentSubject dbModel)
             {
-                dbStudent.StudentSubjects = null;
-                return;
+                dbModel.SubjectId = src.SubjectId;
             }
-
-            //Add All Student subjects
-            if (dbStudent.StudentSubjects == null)
-            {
-                dbStudent.StudentSubjects = entity.StudentSubjects;
-                return;
-            }
-
-            //Merge(Add/Update/Delete) Subjects
-            IEnumerable<long> dbSubIdList = dbStudent.StudentSubjects.Select(ss => ss.Id).ToList();
-            IEnumerable<long> entitySubIdList = entity.StudentSubjects.Select(ss => ss.Id);
-
-            //Remove subjects.
-            foreach (var dbSubId in dbSubIdList.Where(dss => !entitySubIdList.Contains(dss)))
-                dbStudent.StudentSubjects.Remove(dbStudent.StudentSubjects.FirstOrDefault(ss => ss.Id == dbSubId));
-
-
-            //Add/Update StudentEnrollments
-            foreach (var sSubEntity in entity.StudentSubjects)
-            {
-                if (sSubEntity.Id == 0)
-                    dbStudent.StudentSubjects.Add(sSubEntity);
-                else
-                {
-                    var dbStudentSubject = dbStudent.StudentSubjects.FirstOrDefault(e => e.Id == sSubEntity.Id);
-                    if (dbStudentSubject != null)
-                        dbStudentSubject.SubjectId = sSubEntity.SubjectId;
-                }
-            }
-
+            dbStudent.StudentSubjects = _modelHelper.MergeList(entity.StudentSubjects, dbStudent.StudentSubjects, delSrcDestMapper);
         }
 
         private void UpdateEnrollment(Student dbStudent, Student entity)
         {
-            //Remove all Student Subjects
-            if (entity.StudentEnrollments == null)
+            static void delSrcDestMapper(StudentEnrollment src, StudentEnrollment dbModel)
             {
-                dbStudent.StudentEnrollments = null;
-                return;
+                dbModel.Grade = src.Grade;
+                dbModel.AdditionalExplanation = src.AdditionalExplanation;
             }
-
-            //Add All Student subjects
-            if (dbStudent.StudentEnrollments == null)
-            {
-                dbStudent.StudentEnrollments = entity.StudentEnrollments;
-                return;
-            }
-
-            //Merge(Add/Update/Delete) Enrollments
-            IEnumerable<long> dbEnrollIdList = dbStudent.StudentEnrollments.Select(ss => ss.Id).ToList();
-            IEnumerable<long> entityEnrollIdList = entity.StudentEnrollments.Select(ss => ss.Id);
-
-            //Remove StudentEnrollments.
-            foreach (var dbEvalId in dbEnrollIdList.Where(dss => !entityEnrollIdList.Contains(dss)))
-                dbStudent.StudentEnrollments.Remove(dbStudent.StudentEnrollments.FirstOrDefault(ss => ss.Id == dbEvalId));
-
-            //Add/Update StudentEnrollments
-            foreach (var sEnrollEntity in entity.StudentEnrollments)
-            {
-                if (sEnrollEntity.Id == 0)
-                    dbStudent.StudentEnrollments.Add(sEnrollEntity);
-                else
-                {
-                    var dbStudentEnrollment = dbStudent.StudentEnrollments.FirstOrDefault(e => e.Id == sEnrollEntity.Id);
-                    if (dbStudentEnrollment != null)
-                    {
-                        dbStudentEnrollment.Grade = sEnrollEntity.Grade;
-                        dbStudentEnrollment.AdditionalExplanation = sEnrollEntity.AdditionalExplanation;
-                    }
-                }
-            }
+            dbStudent.StudentEnrollments = _modelHelper.MergeList(entity.StudentEnrollments,
+                dbStudent.StudentEnrollments, delSrcDestMapper);
         }
         #endregion
     }

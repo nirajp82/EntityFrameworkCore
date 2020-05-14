@@ -7,6 +7,7 @@ namespace EntityFrameworkCore.Repository
         #region Private Members
         private IStudentRepository _studentRepository { get; set; }
         private ApplicationContext _context { get; }
+        private IModelHelper _modelHelper { get; }
         #endregion
 
 
@@ -16,7 +17,7 @@ namespace EntityFrameworkCore.Repository
             get
             {
                 if (_studentRepository == null)
-                    _studentRepository = new StudentRepository(_context);
+                    _studentRepository = new StudentRepository(_context, _modelHelper);
 
                 return _studentRepository;
             }
@@ -25,9 +26,10 @@ namespace EntityFrameworkCore.Repository
 
 
         #region Constructors
-        public UnitOfWork(ApplicationContext applicationContext)
+        public UnitOfWork(ApplicationContext applicationContext, IModelHelper modelHelper)
         {
             _context = applicationContext;
+            _modelHelper = modelHelper;
         }
         #endregion
 

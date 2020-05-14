@@ -1,7 +1,6 @@
 ﻿using EntityFrameworkCore.DataModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace EntityFrameworkCore.Repository
 {

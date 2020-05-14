@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EntityFrameworkCore.APIModel
+﻿namespace EntityFrameworkCore.APIModel
 {
     public abstract class BaseEntity
     {
